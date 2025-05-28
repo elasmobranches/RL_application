@@ -14,21 +14,12 @@ class DQNNetwork(nn.Module):
         self.grid_size = grid_size
         self.num_input_channels = grid_size + 1 # 0(빈칸)부터 grid_size까지의 숫자를 위한 채널 (예: 5)
 
-        # 입력: (N, num_input_channels, grid_size, grid_size)
-        # 예: (N, 5, 4, 4)
+       
         self.conv1 = nn.Conv2d(self.num_input_channels, 32, kernel_size=3, stride=1, padding=1)
-        # Conv1 출력: (N, 32, grid_size, grid_size) -> (N, 32, 4, 4)
+        
         
         self.conv2 = nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1)
-        # Conv2 출력: (N, 64, grid_size, grid_size) -> (N, 64, 4, 4)
-
-        # (선택적) 풀링 레이어 - 여기서는 사용하지 않음
-        # self.pool = nn.MaxPool2d(kernel_size=2, stride=2) 
-        # 풀링 사용 시 Conv2 출력 후: (N, 64, grid_size/2, grid_size/2) -> (N, 64, 2, 2)
-
-        # FC 레이어 입력 크기 계산
-        # 풀링 미사용 시: 64 * grid_size * grid_size
-        # 풀링 사용 시 (kernel=2, stride=2): 64 * (grid_size/2) * (grid_size/2)
+       
         if grid_size == 4: # 예시
             fc_input_features = 64 * 4 * 4 # 풀링 미사용 시 1024
             # fc_input_features = 64 * 2 * 2 # 풀링 사용 시 256

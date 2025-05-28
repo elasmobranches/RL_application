@@ -1,6 +1,6 @@
 import numpy as np
 import random
-# from sudoku_env import SudokuEnv # 에이전트는 환경의 내부 구조를 직접 알 필요가 줄어듦
+from sudoku_env import SudokuEnv # 에이전트는 환경의 내부 구조를 직접 알 필요가 줄어듦
 
 class QLearningAgent:
     def __init__(self, learning_rate=0.1, discount_factor=0.99, 
@@ -35,7 +35,7 @@ class QLearningAgent:
         if agent_state is None or not agent_state[1]: # 상태가 없거나, 현재 빈칸에 가능한 숫자가 없으면
             return None 
 
-        current_cell_coord, possible_nums = agent_state
+        _, possible_nums = agent_state
 
         if not possible_nums: # 이중 체크, 위에서 이미 agent_state[1]로 체크했지만 명시적으로
             return None
@@ -103,18 +103,18 @@ if __name__ == '__main__':
         [0, 1, 0, 0],
         [0, 0, 0, 4]
     ]
-    state_arr = env_test.reset(puzzle=example_puzzle_q)
-    state_tuple_test = tuple(state_arr)
+    env_test.reset(puzzle=example_puzzle_q) # 보드 초기화
+    current_agent_state_test = env_test._get_current_agent_state() # 에이전트가 이해하는 상태 형태 가져오기
 
     print(f"Initial epsilon: {agent_test.epsilon}")
-    action_test = agent_test.choose_action(state_tuple_test)
+    action_test = agent_test.choose_action(current_agent_state_test) # 올바른 상태 전달
     print(f"Chosen action: {action_test}")
 
     if action_test:
-        next_state_arr, reward_test, done_test, _ = env_test.step(action_test)
-        next_state_tuple_test = tuple(next_state_arr)
-        agent_test.update_q_value(state_tuple_test, action_test, reward_test, next_state_tuple_test)
-        print(f"Q-value for (state, action): {agent_test.get_q_value(state_tuple_test, action_test)}")
+        # env.step은 다음 에이전트 상태를 올바른 형태로 반환
+        next_agent_state_test, reward_test, done_test, _ = env_test.step(action_test)
+        agent_test.update_q_value(current_agent_state_test, action_test, reward_test, next_agent_state_test) # 올바른 상태 전달
+        print(f"Q-value for (state, action): {agent_test.get_q_value(current_agent_state_test, action_test)}")
 
     agent_test.decay_epsilon()
     print(f"Epsilon after decay: {agent_test.epsilon}")
