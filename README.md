@@ -1,5 +1,8 @@
 # 4x4 스도쿠 DP 기반 강화학습 프로젝트
 
+#### model-free 폴더에는 중간 발표 이전의 내용이 담겨있습니다.
+#### sudoku_DP 폴더에는 중간 발표 이후 개선 된 model-based 내용이 담겨 있습니다.
+
 이 폴더는 4x4 스도쿠 퍼즐을 동적계획법(DP, Policy Iteration/Value Iteration) 기반으로 해결하는 방법을 실험합니다.
 
 ## 폴더 구성 및 주요 파일 설명
@@ -45,4 +48,3 @@ python main_DP.py
 
 # 기타
 - Value Comparison은 큰 의미를 갖지는 않습니다
-- 
