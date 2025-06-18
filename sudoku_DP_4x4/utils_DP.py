@@ -1,7 +1,7 @@
 import numpy as np
 
-
-# 4x4 스도쿠 퍼즐 예제 (0은 빈칸)
+# 학습에 사용되는 4x4 스도쿠 퍼즐 예제 (0은 빈칸)
+# 난이도별로 구성된 퍼즐들
 EXAMPLE_PUZZLES_4X4 = [
     {
         "puzzle": np.array([
@@ -30,6 +30,8 @@ EXAMPLE_PUZZLES_4X4 = [
         ]),"difficulty": "Difficult"}
 ]
 
+# 테스트에 사용되는 4x4 스도쿠 퍼즐 (0은 빈칸)
+# 난이도별로 구성된 테스트 퍼즐들
 TEST_PUZZLES_4X4 = [
     {
         "puzzle": np.array([
@@ -58,8 +60,12 @@ TEST_PUZZLES_4X4 = [
         ]),"difficulty": "Difficult"}
 ]
 
+# 스도쿠 보드를 보기 좋게 출력하는 함수
 def print_board(board):
-    """주어진 스도쿠 보드를 보기 좋게 출력합니다."""
+    """
+    주어진 스도쿠 보드를 보기 좋게 출력합니다.
+    0은 빈 칸을 의미합니다.
+    """
     if board is None:
         print("Board is None.")
         return
@@ -79,6 +85,7 @@ def print_board(board):
         print()
     print()
 
+# 메인 실행 부분 - 예제 퍼즐과 테스트 퍼즐 출력
 if __name__ == '__main__':
     print("Available 4x4 Sudoku Puzzles:")
     for i, p_data in enumerate(EXAMPLE_PUZZLES_4X4):
